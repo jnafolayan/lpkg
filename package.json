@@ -1,0 +1,16 @@
+{
+  "name": "lpm",
+  "version": "1.0.0",
+  "description": "A system-wide, local package manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "lpm": "./index.js"
+  },
+  "keywords": [],
+  "author": "John Afolayan <jnafolayan@gmail.com> (jnafolayan.github.io)",
+  "license": "MIT",
+  "private": false
+}
