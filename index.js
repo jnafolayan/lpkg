@@ -28,11 +28,30 @@ function logic() {
 
 	let match;
 
-	[r_add, r_remove, r_clear, r_install, r_list].some(({ regex, execute }) => {
-		if (match = regex.exec(commands)) {
-			execute(match, args);
-			return true;
-		}
-		return false;
-	});
+	if (args['help']) {
+		console.log([
+			'Usage: lpm [--help] <command> [<args>]',
+			'',
+			'Options:',
+			'  -h, --help     Output usage information',
+			'                 Specify the package version to install/register',
+			'  -v, --version  Output the version number',
+			'  --src          Output the version number',
+			'',
+			'Commands:',
+			'  add, register  Add a new package to the store',
+			'  rm, remove     Remove a packages form the store',
+			'  list           List all added packages',
+			'  clear          Remove all packages from the store',
+			'  i, install     Install a package in the current directory'
+		].join('\n'));
+	} else {
+		[r_add, r_remove, r_clear, r_install, r_list].some(({ regex, execute }) => {
+			if (match = regex.exec(commands)) {
+				execute(match, args);
+				return true;
+			}
+			return false;
+		});
+	}
 }

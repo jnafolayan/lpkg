@@ -130,7 +130,7 @@ function processArgs(aliasMap={}, cmdAlias={}) {
  				}
  			}
 
- 			result.args[stripped] = argv[++i] || null;
+ 			result.args[stripped] = argv[++i] || true;
  		}
 	}
 

@@ -9,7 +9,8 @@ exports.DEFAULT_ARGS = {
 exports.MAP_FILE = path.resolve(__dirname, './map.json');
 
 exports.CMD_ALIAS = {
-	i: 'install'
+	i: 'install',
+	rm: 'remove'
 };
 
 
