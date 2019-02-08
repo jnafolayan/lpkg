@@ -1,5 +1,5 @@
 # lpkg
-A local package manager for your private workspace
+A local package manager for your private workspace. Store your files - media, libraries, snippets,  etc - in a centralized store, and import them into any project at any time, easily. 
 
 ## Installation
 
