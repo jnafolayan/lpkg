@@ -15,7 +15,7 @@ logic();
 
 
 function greetUser() {
-	return `Local package manager [ lpm v${VERSION} ]`;
+	return `Local package manager v${VERSION}`;
 }
 
 function logic() {
@@ -41,10 +41,12 @@ function logic() {
 			'Commands:',
 			'  add, register  Add a new package to the store',
 			'  rm, remove     Remove a packages form the store',
-			'  list           List all added packages',
 			'  clear          Remove all packages from the store',
+			'  list           List all added packages',
 			'  i, install     Install a package in the current directory'
 		].join('\n'));
+	} else if (args['version'] === true && !commands) {
+		console.log(VERSION);
 	} else {
 		[r_add, r_remove, r_clear, r_install, r_list].some(({ regex, execute }) => {
 			if (match = regex.exec(commands)) {
