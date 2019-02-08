@@ -49,3 +49,6 @@ Additionally, you can pass a version argument when running the add and install c
 lpkg add <package-name> --version "0.5.0"
 lpkg install <package-name> --version "0.5.0"
 ```
+
+## Notes
+I will update this repo as my activities demand for new features, but if there's anyone using this tool and would like to see new features added, please do request. 
