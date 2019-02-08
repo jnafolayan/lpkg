@@ -30,7 +30,7 @@ function logic() {
 
 	if (args['help']) {
 		console.log([
-			'Usage: lpm [--help] <command> [<args>]',
+			'Usage: lpkg [--help] <command> [<args>]',
 			'',
 			'Options:',
 			'  -h, --help     Output usage information',

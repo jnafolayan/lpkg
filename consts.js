@@ -1,6 +1,6 @@
 const path = require('path');
 
-exports.VERSION = '0.0.1';
+exports.VERSION = require('./package.json').version;
 
 exports.DEFAULT_ARGS = {
 	version: 'latest'
