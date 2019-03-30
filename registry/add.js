@@ -10,7 +10,7 @@ exports.execute = (match, args) => {
 	let src = args['src'];
 
 	if (!src) {
-		console.error('An src option is required!');
+		console.error('error: An src option is required!');
 	} else {
 		src = path.resolve(src);
 
@@ -21,7 +21,11 @@ exports.execute = (match, args) => {
 				return map;
 			})
 			.then(saveMap)
-			.then(() => console.log(`${key}@${version} has been registered successfully.`))
-			.catch(err => console.log(`An error occured while registering ${key}: ${err.message}`));
+			.then(() => console.log(`${key} ${
+				version != 'latest' 
+				? '('+version+') '
+				: '' 
+			}has been added successfully.`))
+			.catch(err => console.log(`error: An error occured while registering ${key}: ${err.message}`));
 	}
 };

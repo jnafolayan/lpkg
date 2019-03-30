@@ -1,11 +1,17 @@
 const fs = require('fs');
-const fsp = fs.promises;
+const { promisify } = require('util');
 const path = require('path');
 const { exec, spawn } = require('child_process');
 const { MAP_FILE } = require('./consts');
 
+const fsp_stat = promisify(fs.stat);
+const fsp_readdir = promisify(fs.readdir);
+const fsp_mkdir = promisify(fs.mkdir);
+const fsp_readFile = promisify(fs.readFile);
+const fsp_writeFile = promisify(fs.writeFile);
+
 function grabSrcStats(src) {
-	return fsp.stat(src);
+	return fsp_stat(src);
 }
 
 function handleDirectoryOrFile({ stats, src, key }) {
@@ -32,8 +38,6 @@ function installDirectory(rootSrc, key, rename) {
 	let directoryList = [rootSrc];
 	let fileList = [];
 
-	console.log(rootSrc)
-
 	readDirectory(rootSrc, Promise.resolve())
 		.then(() => directoryList)
 		.then(convertSourceToDest)
@@ -41,11 +45,11 @@ function installDirectory(rootSrc, key, rename) {
 		.then(() => fileList)
 		.then(convertSourceToDest)
 		.then(createFiles)
-		.then(() => console.log(`\n${key} package was successfully installed.`))
+		.then(() => console.log(`success: \n${key} package was successfully installed.`))
 		.then(() => execPromise(`rename ${getLastSrcDir(rootSrc)} ${key}`).catch(() => Promise.resolve())); 
 
 	function readDirectory(src, promise) {
-		return promise.then(() => fsp.readdir(src))
+		return promise.then(() => fsp_readdir(src))
 			.then(list => {
 				const singulars = list.map(item => {
 					const relativeSrc = getRelativeSrc(src, item);
@@ -75,7 +79,7 @@ function installDirectory(rootSrc, key, rename) {
 		list.forEach(src => {
 			promiseAccum = promiseAccum.then(() => {
 				return execPromise(`rm -rf ${src}`)
-					.then(() => fsp.mkdir(src));
+					.then(() => fsp_mkdir(src));
 			});
 		});
 		return promiseAccum;
@@ -97,7 +101,7 @@ function installFile(source, dest) {
 
 		writeStream.on('error', reject);
 		writeStream.on('finish', () => {
-			console.log(`    | Installed ${dest}`);
+			console.log(`Installed ${dest}`);
 			resolve(true);
 		});
 
@@ -140,13 +144,13 @@ function processArgs(aliasMap={}, cmdAlias={}) {
 }
 
 function fetchMap() {
-	return fsp.readFile(MAP_FILE, 'utf-8')
+	return fsp_readFile(MAP_FILE, 'utf-8')
 		.then(map => { return map || '{}'; })
 		.then(JSON.parse);
 }
 
 function saveMap(map) {
-	return fsp.writeFile(MAP_FILE, JSON.stringify(map), 'utf-8');
+	return fsp_writeFile(MAP_FILE, JSON.stringify(map), 'utf-8');
 }
 
 function execPromise(cmd) {

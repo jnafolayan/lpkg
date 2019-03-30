@@ -14,5 +14,5 @@ exports.execute = (match, args) => {
 		})
 		.then(saveMap)
 		.then(() => console.log(`${key} package has been removed successfully.`))
-		.catch(err => console.log(`An error occured while removing ${key}: ${err.message || err}`));
+		.catch(err => console.log(`error: An error occured while removing ${key}: ${err.message || err}`));
 };

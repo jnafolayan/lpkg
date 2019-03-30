@@ -1,17 +1,16 @@
 class Package {
-	static create(name, src, version) {
-		const pkg = {
-			name,
-			src,
-			version,
-			dateAdded: new Date().toLocaleString()
-		};
-		return pkg;
-	}
+  static create(key, src, version) {
+    return {
+      key,
+      src,
+      version,
+      installs: 0
+    };
+  }
 
-	static toString({ name, src, version, dateAdded }) {
-		return `${name}@${version}: ${src} [${dateAdded}]`;
-	}
+  static toString({ key, version, installs }) {
+    return `${key} (${version}) - ${installs}f`;
+  }
 }
 
 module.exports = Package;

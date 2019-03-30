@@ -17,17 +17,17 @@ exports.execute = (match, args) => {
 			const pkgv = pkg.filter(p => p.version === version)[0];
 
 			if (!pkgv) {
-				throw new ReferenceError(`There was no ${key}@${version} package found.`);
+				throw new ReferenceError(`There was no ${key} @${version} package found.`);
 			}
 
 			const promise = Promise.resolve();
 			const {src} = pkgv;
 
-			console.log(version)
-
-			return grabSrcStats(src)
+			pkgv.installs++;
+			saveMap(map)
+				.then(() => grabSrcStats(src))
 				.then(stats => { return { stats, src, key } })
 				.then(handleDirectoryOrFile);
 		})
-		.catch(err => console.log(`An error occured while installing ${key}:`, err.message || err));
+		.catch(err => console.log(`error: An error occured while installing ${key}:`, err.message || err));
 };

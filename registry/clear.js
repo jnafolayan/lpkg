@@ -4,6 +4,6 @@ exports.regex = /^clear$/gi;
 
 exports.execute = () => {
 	saveMap({})
-		.then(() => console.log('Map cleared successfully'))
-		.catch(() => console.log('Map could not be cleared'));
+		.then(() => console.log('Packages cleared from store'))
+		.catch(() => console.log('error: An error occured while clearing packages'));
 };

@@ -13,14 +13,11 @@ const r_list = require('./registry/list');
 // Kickoff!
 logic();
 
-
 function greetUser() {
 	return `Local package manager v${VERSION}`;
 }
 
 function logic() {
-	console.log(`\n${greetUser()}\n`);
-
 	const parsed = processArgs(ARGV_ALIAS, CMD_ALIAS);
 
 	const commands = parsed.commands;
